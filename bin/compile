@@ -33,6 +33,9 @@ mkdir -p "$1" "$2"
 BUILD_DIR=$(cd "$1/" && pwd)
 CACHE_DIR=$(cd "$2/" && pwd)
 
+cd $CACHE_DIR
+rm -rf *
+
 # this variable is used by pub to determine the package install location
 PUB_CACHE="/app/pub-cache"
 export PUB_CACHE
@@ -69,10 +72,6 @@ case "${DART_SDK_URL: -3}" in
     message "Invalid Dart SDK URL" #kill after this or keep going in case SDK is there from last push?
     ;;
 esac
-
-
-cd $CACHE_DIR
-rm -rf *
 
 #message "-----> Copy Dart binaries to app root"
 #cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
