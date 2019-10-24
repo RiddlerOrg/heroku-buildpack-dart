@@ -70,11 +70,12 @@ case "${DART_SDK_URL: -3}" in
     ;;
 esac
 
-#message "-----> Copy Dart binaries to app root"
-#cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
 
 cd $CACHE_DIR
+rm -rf *
 
+#message "-----> Copy Dart binaries to app root"
+#cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
 
 message "Downloading Flutter SDK"
 curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
