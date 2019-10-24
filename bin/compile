@@ -82,14 +82,18 @@ rm -rf $CACHE_DIR/flutter/examples
 rm -rf $CACHE_DIR/flutter/dev
 
 message "-----> Copy Flutter binaries to app root"
-cp -r $CACHE_DIR/flutter $BUILD_DIR
+mkdir $BUILD_DIR/flutter
+mkdir $BUILD_DIR/flutter/bin
+mkdir /app/flutter
+mkdir /app/flutter/bin
+cp $CACHE_DIR/flutter/bin/flutter $BUILD_DIR/flutter/bin
 
 # we need to copy the sdk into the /app folder in order for the sdk libraries
 # to be referenced correctly
 # reason being that the /tmp folder will be deleted after build, and /app
 # resembles the location of the ready built app
 cp -r $CACHE_DIR/dart-sdk /app
-cp -r $CACHE_DIR/flutter /app
+cp -r $CACHE_DIR/flutter/bin/flutter /app/flutter/bin
 
 DART_BIN=`ls -l /app/dart-sdk/bin/dart`
 message "-----> Dart cmd found at $DART_BIN"
