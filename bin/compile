@@ -108,6 +108,7 @@ cd $BUILD_DIR
 message 'Building with "pub build"'
 /app/flutter/bin/flutter build web
 rm -rf /app/flutter
+rm -rf $BUILD_DIR/flutter
 # I think heroku deletes all the contents of /app and replaces it with
 # whatever is in $BUILD_DIR, so copy over the pub-cache. Why not put it in
 # $BUILD_DIR in the first place? because we need symlinks setup correctly.
