@@ -83,14 +83,14 @@ $CACHE_DIR/flutter/bin/flutter channel master
 $CACHE_DIR/flutter/bin/flutter upgrade
 
 message "-----> Copy Flutter binaries to app root"
-cp -r $CACHE_DIR/flutter $BUILD_DIR
+cp -R $CACHE_DIR/flutter $BUILD_DIR
 
 # we need to copy the sdk into the /app folder in order for the sdk libraries
 # to be referenced correctly
 # reason being that the /tmp folder will be deleted after build, and /app
 # resembles the location of the ready built app
-cp -r $CACHE_DIR/dart-sdk /app
-cp -r $CACHE_DIR/flutter /app
+cp -R $CACHE_DIR/dart-sdk /app
+cp -R $CACHE_DIR/flutter /app
 
 #DART_BIN=`ls -l /app/dart-sdk/bin/dart`
 #message "-----> Dart cmd found at $DART_BIN"
@@ -110,7 +110,7 @@ cd $BUILD_DIR
 message 'Building with "pub build"'
 /app/flutter/bin/flutter build web
 rm -rf /app/flutter
-# rm -rf $BUILD_DIR/flutter
+rm -rf $BUILD_DIR/flutter
 # I think heroku deletes all the contents of /app and replaces it with
 # whatever is in $BUILD_DIR, so copy over the pub-cache. Why not put it in
 # $BUILD_DIR in the first place? because we need symlinks setup correctly.
