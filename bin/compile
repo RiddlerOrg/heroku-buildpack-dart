@@ -105,6 +105,7 @@ CAN_FLUTTER_RUN=`/app/flutter/bin/flutter --version`
 message "-----> Flutter reports version: $CAN_FLUTTER_RUN"
 
 cd $BUILD_DIR
+/app/dart-sdk/bin/pub get
 /app/flutter/bin/flutter pub get
 /app/flutter/bin/flutter config --enable-web
 message 'Building with "pub build"'
