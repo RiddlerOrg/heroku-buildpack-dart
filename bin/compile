@@ -73,8 +73,8 @@ case "${DART_SDK_URL: -3}" in
     ;;
 esac
 
-#message "-----> Copy Dart binaries to app root"
-#cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
+message "-----> Copy Dart binaries to app root"
+cp -R $CACHE_DIR/dart-sdk $BUILD_DIR
 
 message "Downloading Flutter SDK"
 curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
@@ -105,7 +105,7 @@ CAN_FLUTTER_RUN=`/app/flutter/bin/flutter --version`
 message "-----> Flutter reports version: $CAN_FLUTTER_RUN"
 
 cd $BUILD_DIR
-/app/dart-sdk/bin/pub get
+
 /app/flutter/bin/flutter pub get
 /app/flutter/bin/flutter config --enable-web
 message 'Building with "pub build"'
