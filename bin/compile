@@ -74,17 +74,30 @@ esac
 message "-----> Copy Dart binaries to app root"
 cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
 
+message "Downloading Flutter SDK"
+curl -L -k $FLUTTER_SDK_URL -o - | tar xf -
+
+message "-----> Copy Flutter binaries to app root"
+cp -r $CACHE_DIR/flutter $BUILD_DIR
+
 # we need to copy the sdk into the /app folder in order for the sdk libraries
 # to be referenced correctly
 # reason being that the /tmp folder will be deleted after build, and /app
 # resembles the location of the ready built app
 cp -r $CACHE_DIR/dart-sdk /app
+cp -r $CACHE_DIR/flutter /app
 
 DART_BIN=`ls -l /app/dart-sdk/bin/dart`
 message "-----> Dart cmd found at $DART_BIN"
 
+FLUTTER_BIN=`ls -l /app/flutter/bin/flutter`
+message "-----> Dart cmd found at $DART_BIN"
+
 CAN_DART_RUN=`/app/dart-sdk/bin/dart --version`
 message "-----> Dart reports version: $CAN_DART_RUN"
+
+CAN_FLUTTER_RUN=`/app/flutter/bin/flutter --version`
+message "-----> Flutter reports version: $CAN_FLUTTER_RUN"
 
 cd $BUILD_DIR
 
@@ -95,10 +108,10 @@ for filename in `find . -name pubspec.yaml | grep -v dart-sdk | grep -v pub-cach
 
     message "*** Running pub get"
 
-    /app/dart-sdk/bin/pub --version
+    /app/flutter/bin/flutter pub --version
 
     #start pub from the /app folder to have correct symlink paths
-    /app/dart-sdk/bin/pub get
+    /app/flutter/bin/flutter pub get
 
     if [ -d "web" ]
     then
@@ -106,7 +119,7 @@ for filename in `find . -name pubspec.yaml | grep -v dart-sdk | grep -v pub-cach
         if [[ -z "$DART_BUILD_CMD" ]]
         then
             message 'Building with "pub build"'
-            /app/dart-sdk/bin/pub build
+            /app/dart-sdk/bin/flutter build web
         else
             message "Building with \"$DART_BUILD_CMD\""
             eval $DART_BUILD_CMD
