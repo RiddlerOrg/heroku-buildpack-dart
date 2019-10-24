@@ -75,7 +75,7 @@ message "-----> Copy Dart binaries to app root"
 cp -r $CACHE_DIR/dart-sdk $BUILD_DIR
 
 message "Downloading Flutter SDK"
-curl -L -k $FLUTTER_SDK_URL -o - | tar xf -
+curl -L -k $FLUTTER_SDK_URL > flutter-sdk.tar.xz ; tar xf flutter-sdk.tar.xz
 
 message "-----> Copy Flutter binaries to app root"
 cp -r $CACHE_DIR/flutter $BUILD_DIR
